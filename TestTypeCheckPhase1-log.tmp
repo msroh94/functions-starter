@@ -1,0 +1,108 @@
+### BEG # TEST 1 ###
+Table for File: sample/aaa.exp after phase 1
+Table {
+   i0 = unknown
+   i1 = unknown
+   i11 = unknown
+   i2 = unknown
+   i10 = unknown
+   i3 = unknown
+   i13 = unknown
+   i4 = unknown
+   i12 = unknown
+   i5 = unknown
+   i15 = unknown
+   i6 = unknown
+   i14 = unknown
+   i7 = unknown
+   i8 = unknown
+   i9 = unknown
+   total = unknown
+}
+Table for file: sample/aaa.exp after phase 2
+Table {
+   i0 = int
+   i1 = int
+   i11 = int
+   i2 = int
+   i10 = int
+   i3 = int
+   i13 = int
+   i4 = int
+   i12 = int
+   i5 = int
+   i15 = int
+   i6 = int
+   i14 = int
+   i7 = int
+   i8 = int
+   i9 = int
+   total = int
+}
+Table for File: sample/bigcond.exp after phase 1
+Table {
+   this = unknown
+}
+Table for file: sample/bigcond.exp after phase 2
+Table {
+   this = int
+}
+Table for File: sample/cond.exp after phase 1
+Table {
+   r = unknown
+   l = unknown
+}
+Table for file: sample/cond.exp after phase 2
+Table {
+   r = int
+   l = int
+}
+Table for File: sample/fib.exp after phase 1
+Table {
+   zero = unknown
+   four = unknown
+   one = unknown
+   two = unknown
+   three = unknown
+   five = unknown
+}
+Table for file: sample/fib.exp after phase 2
+Table {
+   zero = int
+   four = int
+   one = int
+   two = int
+   three = int
+   five = int
+}
+Table for File: sample/less.exp after phase 1
+Table {
+   r = unknown
+   less = unknown
+   l = unknown
+}
+Table for file: sample/less.exp after phase 2
+Table {
+   r = int
+   less = boolean
+   l = int
+}
+Table for File: sample/not.exp after phase 1
+Table {
+   more = unknown
+   less = unknown
+}
+Table for file: sample/not.exp after phase 2
+Table {
+   more = boolean
+   less = boolean
+}
+Table for File: sample/year.exp after phase 1
+Table {
+   y = unknown
+}
+Table for file: sample/year.exp after phase 2
+Table {
+   y = int
+}
+### END # TEST 1 ###
