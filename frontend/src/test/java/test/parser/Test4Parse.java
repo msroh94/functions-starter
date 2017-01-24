@@ -40,7 +40,7 @@ public class Test4Parse extends Test3Parse {
 	 * "Test4Parse-log.tmp". This logfile is rewritten on
 	 * each testrun.
 	 */
-	final static boolean verifyTanscript = false;
+	final static boolean verifyTanscript = true;
 	
 	private static TranscriptWriter transcript;
 	
