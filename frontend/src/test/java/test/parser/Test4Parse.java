@@ -40,7 +40,7 @@ public class Test4Parse extends Test3Parse {
 	 * "Test4Parse-log.tmp". This logfile is rewritten on
 	 * each testrun.
 	 */
-	final static boolean verifyTanscript = true;
+	final static boolean verifyTanscript = false;
 	
 	private static TranscriptWriter transcript;
 	
@@ -48,7 +48,6 @@ public class Test4Parse extends Test3Parse {
 
 	@BeforeAll
 	public static void openTranscript() throws IOException {
-			System.out.println("!!!!! OT");
 		if (verifyTanscript)
 			transcript = new TranscriptWriter(new File("Test4Parse.log"));
 		else {
@@ -57,13 +56,10 @@ public class Test4Parse extends Test3Parse {
 				tempLog.delete();
 			transcript = new TranscriptWriter(tempLog);
 		}
-			System.out.println("!!!!! OT end");			
 	}
 	@AfterAll
 	public static void closeTranscript() throws IOException {
-						System.out.println("!!!!! CT");
 		transcript.close();
-					System.out.println("!!!!! CT end");
 	}
 	@BeforeEach
 	public void markBegin() throws IOException {
