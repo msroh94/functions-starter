@@ -25,6 +25,15 @@ import java.io.IOException;
 public class Test4Parse extends Test3Parse {
 
 	/**
+	 * WARNING:
+	 * The verifyTranscript option described here relies on the testing
+	 * framework running tests in a deterministic order, which is not
+	 * guaranteed at all.  Thus the verifyTranscript option does not work
+	 * yet, as it needs to be refined to provide more detailed test-by-test
+	 * functionality.  Do not rely on it for this project: Keep it as false.
+	 *
+	 * OLD NOTES AND DOCUMENTATION:
+	 * (From the old times when verifyTranscript worked)
 	 * If verifyTranscript is true then the output of the test run will be
 	 * compared against the "TestParse4.log" file. Errors will be thrown if
 	 * the actual output doesn't match the logfile contents.
