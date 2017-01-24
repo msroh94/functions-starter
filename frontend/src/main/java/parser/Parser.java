@@ -14,7 +14,6 @@ import ast.Expression;
 import ast.Program;
 
 
-
 /**
  * Instead of calling methods in the JavaCC (or maybe SableCC) generated
  * parser directly. We use this class as a kind of Stub class to isolate us from
@@ -35,53 +34,54 @@ import ast.Program;
  */
 public class Parser {
 
-	/**
-	 * Read input from a File and parse it into an AST representation.
-	 */
-	public static Program parse(File file) throws IOException, ParseException {
-		FileReader input = new FileReader(file);
-		try {
-			return parse(input);
-		}
-		finally { //No matter what happens, always close the file!
-			input.close();
-		}
-	}
+    /**
+     * Read input from a File and parse it into an AST representation.
+     */
+    public static Program parse(File file) throws IOException, ParseException {
+        FileReader input = new FileReader(file);
+        try {
+            return parse(input);
+        } finally { //No matter what happens, always close the file!
+            input.close();
+        }
+    }
 
-	/**
-	 * Read input from a java.io.Reader and parse it into an AST. It is the
-	 * caller's responsibility to close the Reader.
-	 */
-	private static Program parse(Reader input) throws ParseException {
-		JCCExpressionsParser parser = new JCCExpressionsParser(input);
-		return parser.Program();
-	}
+    /**
+     * Read input from a java.io.Reader and parse it into an AST. It is the
+     * caller's responsibility to close the Reader.
+     */
+    private static Program parse(Reader input) throws ParseException {
+        JCCExpressionsParser parser = new JCCExpressionsParser(input);
+        return parser.Program();
+    }
 
-	/**
-	 * Read input directly from a String and parse it into an AST.
-	 */
-	public static Program parse(String inputText) throws ParseException {
-		return parse(new StringReader(inputText));
-	}
+    /**
+     * Read input directly from a String and parse it into an AST.
+     */
+    public static Program parse(String inputText) throws ParseException {
+        return parse(new StringReader(inputText));
+    }
 
-	/**
-	 * Normally we don't need to parse just expressions by themselves. But this
-	 * is a convenience method, used by the unit tests for creating error messages.
-	 * @throws ParseException 
-	 */
-	public static Expression parseExp(String exp) throws ParseException {
-		JCCExpressionsParser parser = new JCCExpressionsParser(new StringReader(exp));
-		return parser.Expression();
-	}
-	/**
-	 * Pretty print an AST node and return the result as a String.
-	 */
-	public static String unparse(AST node) {
-		return node.toString(); 
-		// This assumes that toString on AST nodes is appropriately implemented.
-		// If you decided to generate/implement your own AST classes rather than use 
-		// the ones we provided for you, you may need to implement this unparse method 
-		// differently.
-	}
+    /**
+     * Normally we don't need to parse just expressions by themselves. But this
+     * is a convenience method, used by the unit tests for creating error messages.
+     *
+     * @throws ParseException
+     */
+    public static Expression parseExp(String exp) throws ParseException {
+        JCCExpressionsParser parser = new JCCExpressionsParser(new StringReader(exp));
+        return parser.Expression();
+    }
+
+    /**
+     * Pretty print an AST node and return the result as a String.
+     */
+    public static String unparse(AST node) {
+        return node.toString();
+        // This assumes that toString on AST nodes is appropriately implemented.
+        // If you decided to generate/implement your own AST classes rather than use
+        // the ones we provided for you, you may need to implement this unparse method
+        // differently.
+    }
 
 }

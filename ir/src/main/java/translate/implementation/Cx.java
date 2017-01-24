@@ -7,6 +7,7 @@ import static ir.tree.IR.MOVE;
 import static ir.tree.IR.SEQ;
 import static ir.tree.IR.TEMP;
 import static ir.tree.IR.TRUE;
+
 import ir.temp.Label;
 import ir.temp.Temp;
 import ir.tree.IRExp;
@@ -15,24 +16,24 @@ import ir.tree.TEMP;
 
 public abstract class Cx extends TRExp {
 
-	@Override
-	public abstract IRStm unCx(Label ifTrue, Label ifFalse);
-	
-	public abstract IRStm unCx(IRExp dst, IRExp src);
+    @Override
+    public abstract IRStm unCx(Label ifTrue, Label ifFalse);
 
-	@Override
-	public IRExp unEx() {
-		TEMP r = TEMP(new Temp());
-		return ESEQ( SEQ( MOVE(r, FALSE),
-					      unCx(r, TRUE)),
-				     r);
-	}
+    public abstract IRStm unCx(IRExp dst, IRExp src);
 
-	@Override
-	public IRStm unNx() {
-		Label end = Label.gen();
-		return SEQ(  unCx(end, end),
-					 LABEL(end) );
-	}
+    @Override
+    public IRExp unEx() {
+        TEMP r = TEMP(new Temp());
+        return ESEQ(SEQ(MOVE(r, FALSE),
+                unCx(r, TRUE)),
+                r);
+    }
+
+    @Override
+    public IRStm unNx() {
+        Label end = Label.gen();
+        return SEQ(unCx(end, end),
+                LABEL(end));
+    }
 
 }

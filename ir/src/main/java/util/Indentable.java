@@ -8,11 +8,11 @@ package util;
  * Implementations of indentable should try to use the dump method to
  * indent nested elements if possible. If not possible they should fall
  * back on the nested element's toString method.
- * 
+ *
  * @author kdvolder
  */
 public interface Indentable {
-	
-	void dump(IndentingWriter out);
+
+    void dump(IndentingWriter out);
 
 }

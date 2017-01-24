@@ -6,8 +6,8 @@ package ir.interp;
  */
 public enum InterpMode {
 
-	LINEARIZED_IR,	// Simulate execution with linearized IR
-	BASIC_BLOCKS,	// Simulate execution with basic blocks
-	TRACE_SCHEDULE	// Simulate execution with the code produced by Trace Scheduling
-	
+    LINEARIZED_IR,    // Simulate execution with linearized IR
+    BASIC_BLOCKS,    // Simulate execution with basic blocks
+    TRACE_SCHEDULE    // Simulate execution with the code produced by Trace Scheduling
+
 }

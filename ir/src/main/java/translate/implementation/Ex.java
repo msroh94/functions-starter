@@ -11,34 +11,30 @@ import ir.tree.CJUMP.RelOp;
  */
 public class Ex extends TRExp {
 
-	private final IRExp exp;
+    private final IRExp exp;
 
-	public Ex(IRExp exp) {
-		this.exp = exp;
-	}
+    public Ex(IRExp exp) {
+        this.exp = exp;
+    }
 
-	@Override
-	public
-	IRStm unCx(Label ifTrue, Label ifFalse) {
-		return IR.CJUMP(RelOp.NE, exp, IR.CONST(0), ifTrue, ifFalse);
-	}
+    @Override
+    public IRStm unCx(Label ifTrue, Label ifFalse) {
+        return IR.CJUMP(RelOp.NE, exp, IR.CONST(0), ifTrue, ifFalse);
+    }
 
-	@Override
-	public
-	IRStm unCx(IRExp dst, IRExp src) {
-		return IR.CMOVE(RelOp.NE, exp, IR.CONST(0), dst, src);
-	}
+    @Override
+    public IRStm unCx(IRExp dst, IRExp src) {
+        return IR.CMOVE(RelOp.NE, exp, IR.CONST(0), dst, src);
+    }
 
-	@Override
-	public
-	IRExp unEx() {
-		return exp;
-	}
+    @Override
+    public IRExp unEx() {
+        return exp;
+    }
 
-	@Override
-	public
-	IRStm unNx() {
-		return IR.EXP(exp);
-	}
+    @Override
+    public IRStm unNx() {
+        return IR.EXP(exp);
+    }
 
 }

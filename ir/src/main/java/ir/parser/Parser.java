@@ -32,32 +32,31 @@ import ir.parser.ParseException;
  */
 public class Parser {
 
-	/**
-	 * Read input from a File and parse it into a list of IR.
-	 */
-	public static Fragments parse(File file) throws IOException, ParseException {
-		FileReader input = new FileReader(file);
-		try {
-			return parse(input);
-		}
-		finally { //No matter what happens, always close the file!
-			input.close();
-		}
-	}
+    /**
+     * Read input from a File and parse it into a list of IR.
+     */
+    public static Fragments parse(File file) throws IOException, ParseException {
+        FileReader input = new FileReader(file);
+        try {
+            return parse(input);
+        } finally { //No matter what happens, always close the file!
+            input.close();
+        }
+    }
 
-	/**
-	 * Read input from a java.io.Reader and parse it into an AST. It is the
-	 * caller's responsibility to close the Reader.
-	 */
-	public static Fragments parse(Reader input) throws ParseException {
-		IRParser parser = new IRParser(input);
-		return parser.Fragments();
-	}
+    /**
+     * Read input from a java.io.Reader and parse it into an AST. It is the
+     * caller's responsibility to close the Reader.
+     */
+    public static Fragments parse(Reader input) throws ParseException {
+        IRParser parser = new IRParser(input);
+        return parser.Fragments();
+    }
 
-	/**
-	 * Read input directly from a String and parse it into an AST.
-	 */
-	public static Fragments parse(String inputText) throws ParseException {
-		return parse(new StringReader(inputText));
-	}
+    /**
+     * Read input directly from a String and parse it into an AST.
+     */
+    public static Fragments parse(String inputText) throws ParseException {
+        return parse(new StringReader(inputText));
+    }
 }

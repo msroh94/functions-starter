@@ -6,21 +6,21 @@ import ir.tree.IR;
 import ir.tree.IRExp;
 
 class InReg extends Access {
-	
-	private Temp name;
 
-	InReg(Temp name) {
-		this.name = name;
-	}
+    private Temp name;
 
-	@Override
-	public String toString() {
-		return name.toString();
-	}
+    InReg(Temp name) {
+        this.name = name;
+    }
 
-	@Override
-	public IRExp exp(IRExp framePtr) {
-		return IR.TEMP(name);
-	}
+    @Override
+    public String toString() {
+        return name.toString();
+    }
+
+    @Override
+    public IRExp exp(IRExp framePtr) {
+        return IR.TEMP(name);
+    }
 
 }

@@ -56,136 +56,139 @@ import util.List;
  * detect "out of bounds errors" that may be the result of bugs in your IR code
  * generator (assuming that you are compiling well behaved code, any
  * out-of-bounds errors must be the result of a compiler bug).
- * 
+ *
  * @author kdvolder
  */
 public class Interp {
-	
-	/**
-	 * The program may produce output in here.
-	 */
-	private StringWriter out = null;
-	
-	/**
-	 * A map of all the method fragments in the program. (To find the
-	 * code for CALLed procedures).
-	 */
-	private Map<Label, Callable> methods = new HashMap<Label, Callable>();
-	
-	/**
-	 * The "main" method fragment.
-	 */
-	private Callable main = null;
 
-	/**
-	 * 
-	 * We'll need to know the wordsize to run the simulation (for
-	 * simulating pointer arithmetic).
-	 */
-	private int wordSize;
+    /**
+     * The program may produce output in here.
+     */
+    private StringWriter out = null;
 
-	/**
-	 * Which kind of IR code for methods are we using?
-	 */
-	private InterpMode simulationMode;
-	
-	/**
-	 * Setup the interpreter for running a given program.
-	 */
-	public Interp(Fragments program, InterpMode simMode) {
-		this.simulationMode = simMode;
-		Label mainLabel = TranslatorLabels.L_MAIN;
-		for (Fragment fragment : program) {
-			if (fragment instanceof ProcFragment) {
-				ProcFragment methodFrag = (ProcFragment)fragment;
-				SimProc callable = new SimProc(methodFrag, simulationMode);
-				if (mainLabel.equals(methodFrag.getLabel())) {
-					wordSize = methodFrag.wordSize();
-					main = callable;
-				} else 
-					methods.put(methodFrag.getLabel(), callable);
-			} else if (fragment instanceof DataFragment) {
-				DataFragment dataFrag = (DataFragment) fragment;
-				dataFrag.interp(this);
-			} else {
-				throw new Error("IR Simulator doesn't know about fragments of this type: "+ fragment.getClass());
-			}
-		}
-		defineSystemFunctions();
-	}
+    /**
+     * A map of all the method fragments in the program. (To find the
+     * code for CALLed procedures).
+     */
+    private Map<Label, Callable> methods = new HashMap<Label, Callable>();
 
-	private void defineSystemFunctions() {
-		methods.put(TranslatorLabels.L_PRINT, new Callable() {
-			@Override
-			public Word call(Interp interp, List<Word> list) {
-				Int arg = (Int) list.get(0);
-				out.append(arg.toString());
-				out.append("\n");
-				return UninitializedWord.the;
-			}
-			@Override
-			public String toString() {
-				return TranslatorLabels.L_PRINT.toString();
-			}
-		});
-		methods.put(TranslatorLabels.L_NEW_OBJECT, new Callable() {
-			@Override
-			public Word call(Interp interp, List<Word> list) {
-				int numBytes = ((Int) list.get(0)).value;
-				Assertions.assertTrue(numBytes%wordSize==0);
-				Array arr = new Array(numBytes/wordSize, wordSize);
-				arr.fill(new Int(0));
-				return arr;
-			}
-			public String toString() {
-				return TranslatorLabels.L_NEW_OBJECT.toString();
-			}
-		});
-		methods.put(TranslatorLabels.L_NEW_ARRAY, new Callable() {
-			@Override
-			public Word call(Interp interp, List<Word> list) {
-				// Array layout: the returned pointer points to
-				// the 0 element of the array. The element just before
-				// it should be the length of the array.
-				int numElements = ((Int) list.get(0)).value;
-				Array arr = new Array(numElements+1, wordSize);
-				arr.fill(new Int(0));
-				arr.set(new Int(numElements));
-				return arr.add(wordSize);
-			}
-			public String toString() {
-				return TranslatorLabels.L_NEW_ARRAY.toString();
-			}
-		});
-		methods.put(TranslatorLabels.L_ERROR, new Callable() {
-			@Override
-			public Word call(Interp interp, List<Word> list) {
-				Int arg = (Int) list.get(0);
-				out.append("MiniJava failure ");
-				out.append(arg.toString());
-				out.append("\n");
-				System.out.println(out.toString());
-				throw new Error(out.toString());
-				// System.exit(1);
-				// return UninitializedWord.the;
-			}
-			@Override
-			public String toString() {
-				return TranslatorLabels.L_ERROR.toString();
-			}
-		});
-	}
+    /**
+     * The "main" method fragment.
+     */
+    private Callable main = null;
 
-	public String run() {
-		Assertions.assertNull(out, "You aren't supposed to run the program more than once with the same interpreter");
-		out = new StringWriter();
-		main.call(this, List.list(new Word[0]));
-		return out.toString();
-	}
+    /**
+     * We'll need to know the wordsize to run the simulation (for
+     * simulating pointer arithmetic).
+     */
+    private int wordSize;
 
-	public Callable getProcLabel(Label label) {
-		Callable result = methods.get(label);
-		return result;
-	}
+    /**
+     * Which kind of IR code for methods are we using?
+     */
+    private InterpMode simulationMode;
+
+    /**
+     * Setup the interpreter for running a given program.
+     */
+    public Interp(Fragments program, InterpMode simMode) {
+        this.simulationMode = simMode;
+        Label mainLabel = TranslatorLabels.L_MAIN;
+        for (Fragment fragment : program) {
+            if (fragment instanceof ProcFragment) {
+                ProcFragment methodFrag = (ProcFragment) fragment;
+                SimProc callable = new SimProc(methodFrag, simulationMode);
+                if (mainLabel.equals(methodFrag.getLabel())) {
+                    wordSize = methodFrag.wordSize();
+                    main = callable;
+                } else
+                    methods.put(methodFrag.getLabel(), callable);
+            } else if (fragment instanceof DataFragment) {
+                DataFragment dataFrag = (DataFragment) fragment;
+                dataFrag.interp(this);
+            } else {
+                throw new Error("IR Simulator doesn't know about fragments of this type: " + fragment.getClass());
+            }
+        }
+        defineSystemFunctions();
+    }
+
+    private void defineSystemFunctions() {
+        methods.put(TranslatorLabels.L_PRINT, new Callable() {
+            @Override
+            public Word call(Interp interp, List<Word> list) {
+                Int arg = (Int) list.get(0);
+                out.append(arg.toString());
+                out.append("\n");
+                return UninitializedWord.the;
+            }
+
+            @Override
+            public String toString() {
+                return TranslatorLabels.L_PRINT.toString();
+            }
+        });
+        methods.put(TranslatorLabels.L_NEW_OBJECT, new Callable() {
+            @Override
+            public Word call(Interp interp, List<Word> list) {
+                int numBytes = ((Int) list.get(0)).value;
+                Assertions.assertTrue(numBytes % wordSize == 0);
+                Array arr = new Array(numBytes / wordSize, wordSize);
+                arr.fill(new Int(0));
+                return arr;
+            }
+
+            public String toString() {
+                return TranslatorLabels.L_NEW_OBJECT.toString();
+            }
+        });
+        methods.put(TranslatorLabels.L_NEW_ARRAY, new Callable() {
+            @Override
+            public Word call(Interp interp, List<Word> list) {
+                // Array layout: the returned pointer points to
+                // the 0 element of the array. The element just before
+                // it should be the length of the array.
+                int numElements = ((Int) list.get(0)).value;
+                Array arr = new Array(numElements + 1, wordSize);
+                arr.fill(new Int(0));
+                arr.set(new Int(numElements));
+                return arr.add(wordSize);
+            }
+
+            public String toString() {
+                return TranslatorLabels.L_NEW_ARRAY.toString();
+            }
+        });
+        methods.put(TranslatorLabels.L_ERROR, new Callable() {
+            @Override
+            public Word call(Interp interp, List<Word> list) {
+                Int arg = (Int) list.get(0);
+                out.append("MiniJava failure ");
+                out.append(arg.toString());
+                out.append("\n");
+                System.out.println(out.toString());
+                throw new Error(out.toString());
+                // System.exit(1);
+                // return UninitializedWord.the;
+            }
+
+            @Override
+            public String toString() {
+                return TranslatorLabels.L_ERROR.toString();
+            }
+        });
+    }
+
+    public String run() {
+        Assertions.assertNull(out, "You aren't supposed to run the program more than once with the same interpreter");
+        out = new StringWriter();
+        main.call(this, List.list(new Word[0]));
+        return out.toString();
+    }
+
+    public Callable getProcLabel(Label label) {
+        Callable result = methods.get(label);
+        return result;
+    }
 
 }

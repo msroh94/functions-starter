@@ -28,7 +28,7 @@ import ast.UnknownType;
  * <p>
  * Frameworks often provide default visitor implementations that traverse the tree and
  * don't do anything. This is convenient in some cases because you may be able to avoid
- * explicitly writing code to visit children for many nodes. 
+ * explicitly writing code to visit children for many nodes.
  * However, I dislike this style of "defaults" because it tends to lead to subtle bugs where
  * a default implementation is inherited but it doesn't quite do what you want.
  * <p>
@@ -39,87 +39,87 @@ import ast.UnknownType;
  * <p>
  * For the cases where some methods are simply not being used, this default implementation provides
  * a compromise: you don't have to implement methods you do not use. For this privilege, you loose
- * that the compiler can warn you if you forget to implement some methods, but at least you will 
- * get a runtime error when those methods are called, rather than inherit some default "do nothing" 
+ * that the compiler can warn you if you forget to implement some methods, but at least you will
+ * get a runtime error when those methods are called, rather than inherit some default "do nothing"
  * implementation, which silently proceeds, but probably doesn't quite do what you want.
- * 
+ *
  * @author kdvolder
  */
 public class DefaultVisitor<R> implements Visitor<R> {
 
-	@Override
-	public <T extends AST> R visit(NodeList<T> ns) {
-		throw new Error("Not implemented");
-	}
+    @Override
+    public <T extends AST> R visit(NodeList<T> ns) {
+        throw new Error("Not implemented");
+    }
 
-	@Override
-	public R visit(Program n) {
-		throw new Error("Not implemented");
-	}
+    @Override
+    public R visit(Program n) {
+        throw new Error("Not implemented");
+    }
 
-	@Override
-	public R visit(BooleanType n) {
-		throw new Error("Not implemented");
-	}
+    @Override
+    public R visit(BooleanType n) {
+        throw new Error("Not implemented");
+    }
 
-	@Override
-	public R visit(IntegerType n) {
-		throw new Error("Not implemented");
-	}
+    @Override
+    public R visit(IntegerType n) {
+        throw new Error("Not implemented");
+    }
 
-	@Override
-	public R visit(Print n) {
-		throw new Error("Not implemented");
-	}
+    @Override
+    public R visit(Print n) {
+        throw new Error("Not implemented");
+    }
 
-	@Override
-	public R visit(Assign n) {
-		throw new Error("Not implemented");
-	}
+    @Override
+    public R visit(Assign n) {
+        throw new Error("Not implemented");
+    }
 
-	@Override
-	public R visit(LessThan n) {
-		throw new Error("Not implemented");
-	}
+    @Override
+    public R visit(LessThan n) {
+        throw new Error("Not implemented");
+    }
 
-	@Override
-	public R visit(Conditional n) {
-		throw new Error("Not implemented");
-	}
+    @Override
+    public R visit(Conditional n) {
+        throw new Error("Not implemented");
+    }
 
-	@Override
-	public R visit(Plus n) {
-		throw new Error("Not implemented");
-	}
+    @Override
+    public R visit(Plus n) {
+        throw new Error("Not implemented");
+    }
 
-	@Override
-	public R visit(Minus n) {
-		throw new Error("Not implemented");
-	}
+    @Override
+    public R visit(Minus n) {
+        throw new Error("Not implemented");
+    }
 
-	@Override
-	public R visit(Times n) {
-		throw new Error("Not implemented");
-	}
+    @Override
+    public R visit(Times n) {
+        throw new Error("Not implemented");
+    }
 
-	@Override
-	public R visit(IntegerLiteral n) {
-		throw new Error("Not implemented");
-	}
+    @Override
+    public R visit(IntegerLiteral n) {
+        throw new Error("Not implemented");
+    }
 
-	@Override
-	public R visit(IdentifierExp n) {
-		throw new Error("Not implemented");
-	}
+    @Override
+    public R visit(IdentifierExp n) {
+        throw new Error("Not implemented");
+    }
 
-	@Override
-	public R visit(Not not) {
-		throw new Error("Not implemented");
-	}
+    @Override
+    public R visit(Not not) {
+        throw new Error("Not implemented");
+    }
 
-	@Override
-	public R visit(UnknownType n) {
-		throw new Error("Not implemented");
-	}
+    @Override
+    public R visit(UnknownType n) {
+        throw new Error("Not implemented");
+    }
 
 }

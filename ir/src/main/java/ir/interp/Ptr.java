@@ -5,10 +5,11 @@ package ir.interp;
  */
 public abstract class Ptr extends Word {
 
-	public abstract void set(Word newValue);
-	public abstract Word get();
-	
-	@Override
-	public abstract Ptr add(int bytesOffset);
-	
+    public abstract void set(Word newValue);
+
+    public abstract Word get();
+
+    @Override
+    public abstract Ptr add(int bytesOffset);
+
 }
