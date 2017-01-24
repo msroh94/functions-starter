@@ -3,7 +3,7 @@
  */
  
 options {
-  JDK_VERSION = "1.6";
+  JDK_VERSION = "1.8";
   STATIC = false;
 }
 PARSER_BEGIN(JCCExpressionsParser)
@@ -57,20 +57,24 @@ Program Program() : {
 	NodeList<Statement> ss = new NodeList<Statement>();
 	Statement s; 
 	Expression e;
-}{	( s=Statement()
+}
+{
+	( s=Statement()
 		{ ss.add(s); } 
 	)*
 	< PRINT > e = Expression()
 	<EOF>
 	{ return new Program(ss, new Print(e)); }
-}
+}
+
 Statement Statement() : {
 	Statement s = null; //TODO: should not be null ever!
 }
 {	
 	s=Assign()	
 	{ return s; }		
-}
+}
+
 Statement Assign() : {
 	String name;
 	Expression value;

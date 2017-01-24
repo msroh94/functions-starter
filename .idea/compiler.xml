@@ -11,9 +11,9 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="frontend" target="1.5" />
+      <module name="frontend" target="1.8" />
       <module name="functions-starter" target="1.5" />
-      <module name="ir" target="1.5" />
+      <module name="ir" target="1.8" />
       <module name="maven" target="1.5" />
     </bytecodeTargetLevel>
   </component>
