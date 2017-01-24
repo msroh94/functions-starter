@@ -2,6 +2,9 @@
 
 The repository is configured with maven to retrieve all necessary dependencies, as well as to run automatically the parsing classes on build.
 
+## Prerequisites
+Please ensure you have an up-to-date Java Development Kit (JDK).  You can get one from Oracle at http://www.oracle.com/technetwork/java/javase/downloads/index.html
+
 ## Instructions to start working on IntelliJ IDEA
 You can find detailed instructions on how to setup IntelliJ with Github at https://www.jetbrains.com/help/idea/2016.3/using-github-integration.html
 
